@@ -35,7 +35,7 @@ CollegeScout simplifies the daunting college search process. It uses state-of-th
 
 1.  **Clone the repository:**
     ```bash
-    git clone [invalid URL removed]
+    git clone https://github.com/Aditi-141/CollegeScout.git
     ```
 2.  **Navigate to the project directory:**
     ```bash
