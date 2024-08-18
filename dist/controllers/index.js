@@ -13,10 +13,11 @@ const modelId = "gemini-pro"; // Model initialization
 const model = configuration.getGenerativeModel({ model: modelId });
 const conversationContext = [];
 const currentMessages = [];
+
 /**
  * A function to generate reponse for the question asked
  * * @param {*} req a param that receives the json of text file uploaded
- *  * @param {*} res a param that send the outcome such as name and program of student
+ * * @param {*} res a param that send the outcome such as name and program of student
  *
  */
 const catchAsync = (fn) => (req, res, next) => {
@@ -28,6 +29,10 @@ const catchAsync = (fn) => (req, res, next) => {
   });
 };
 
+/**
+ * @param {object} req - Express request object, containing the user's prompt in req.body.
+ * @param {object} res - Express response object used to send the final response with extracted information.
+ */
 const generateResponse = catchAsync(async (req, res) => {
   let { prompt } = req.body;
   const chatConfig = {
@@ -67,18 +72,11 @@ const generateResponse = catchAsync(async (req, res) => {
   res.json({ response: { name, program, colleges,} });
 });
 
-// const insertStudent = async (name, program) => {
-//   try {
-//     const studentRes = await pool.query(
-//       "INSERT INTO students (name, program) VALUES ($1, $2) RETURNING id",
-//       [name, program]
-//     );
-//     console.log("Student added with ID:", studentRes.rows[0].id);
-//   } catch (error) {
-//     console.error("Error inserting student:", error);
-//     throw error; // Rethrowing the error to be caught by the async error handling middleware
-//   }
-// };
+/**
+ * @param {*} interestedProgram contains users program they want to apply forcontains main keywords written by the user in the SOP
+ * @param {*} sopKeywordString 
+ * @returns 
+ */
 
 const getColleges = async (interestedProgram, sopKeywordString) => {
   try {
@@ -134,4 +132,5 @@ const getColleges = async (interestedProgram, sopKeywordString) => {
     throw err; // Propagate error to be caught by the calling function
   }
 };
+
 export { generateResponse as generateResponse };
