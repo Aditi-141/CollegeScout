@@ -27,7 +27,6 @@ typings/
 .npm
 
 # js build / generate output
-dist
 .env.dev
 
 ### VisualStudioCode ###
