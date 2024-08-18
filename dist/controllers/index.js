@@ -2,6 +2,7 @@ import pkg from "express";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
 import cors from "cors";
+import pool from "../model/database.js";
 
 dotenv.config();
 
@@ -44,7 +45,7 @@ const generateResponse = catchAsync(async (req, res) => {
         { role: "model", content: { text: responseText } },
       ])
     ),
-    generationConfig: { maxOutputTokens: 100 },
+    generationConfig: { maxOutputTokens: 200 },
   };
 
   const chat = model.startChat(chatConfig);
@@ -110,7 +111,7 @@ const getColleges = async (interestedProgram, sopKeywordString) => {
           { role: "model", content: { text: responseText } },
         ])
       ),
-      generationConfig: { maxOutputTokens: 100 },
+      generationConfig: { maxOutputTokens: 200 },
     };
     const chat = model.startChat(chatConfig);
     let keyprompt =
@@ -118,7 +119,7 @@ const getColleges = async (interestedProgram, sopKeywordString) => {
       collegeDetails +
       " and these are SOP key words = " +
       sopKeywords +
-      '. Give the names of the colleges that match the most with the keywords, similarity percentage more than 0%, and a detailed description in 1-2 line of each college related to the SOP. Give the output in array format i.e [{"collegeName": "<name>", "similarity": "<similarity percentage>", "description": "<detailed description>"},...] in descending order of similarity. Dont aadd empty space' ;
+      '. Give the names of the colleges that match the most with the keywords, similarity percentage more than 0%, and a detailed description in 1-2 line of each college related to the SOP. Give the output in array format i.e [{"collegeName": "<name>", "similarity": "<similarity percentage>%", "description": "<detailed description>"},...] in descending order of similarity. Dont add empty space. Give 200 token response with complete JSON array of objects' ;
     let chatresult = await chat.sendMessage(keyprompt);
     let keywords = chatresult.response.text();
     if (typeof keywords === 'string') {

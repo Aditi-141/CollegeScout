@@ -298,7 +298,7 @@ return (
           <div>No recommendations found. Please try uploading another SOP.</div>
         )}
         <ul style={styles.list}>
-          {serverResponse.colleges.slice(0, showMore ? serverResponse.colleges.length : 3).map((college, index) => (
+          {serverResponse.colleges.slice(0, showMore ? serverResponse.colleges.length : 2).map((college, index) => (
             <li key={index} style={styles.card}>
               <div style={styles.cardHeader}>{college.collegeName}</div>
               <p></p>
@@ -312,7 +312,7 @@ return (
             </li>
           ))}
         </ul>
-        {serverResponse.colleges.length > 3 && (
+        {serverResponse.colleges.length > 2 && (
           <button onClick={toggleShowMore} style={styles.showMoreButton}>
             {showMore ? 'Show Less' : 'Show More'}
           </button>
