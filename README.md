@@ -1,6 +1,6 @@
 #CollegeScout: Gemini AI-Powered College Recommendation System
 
-CollegeScout simplifies the daunting college search process. It uses state-of-the-art AI to analyze your Statement of Purpose (SOP) and recommend colleges perfectly aligned with your goals and aspirations.
+CollegeScout simplifies the daunting college search process. It uses state-of-the-art AI to analyze your Statement of Purpose (SOP) and recommend colleges perfectly aligned with your goals and aspirations. You will be required to upload the SOP in upload file section and then analyse it to receive collge recommendation.
 
 #Key Features
 
@@ -63,7 +63,5 @@ CollegeScout simplifies the daunting college search process. It uses state-of-th
 *   `/src`: TypeScript source code
     *   `/controllers`: API endpoints and logic
     *   `/models`: Database schemas and interactions
-    *   `/routes`: API routes
-    *   `/utils`: Helper functions
 *   `/dist`: Compiled JavaScript code
 *   `.env`: Stores your API key

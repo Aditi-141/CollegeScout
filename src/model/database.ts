@@ -5,7 +5,7 @@ const pool = new Pool({
     host: process.env.DB_HOST || 'localhost',
     database: process.env.DB_NAME || 'student',
     password: process.env.DB_PASS || '',  // Ensure password is a string
-    port: process.env.DB_PORT || 5432,
+    port: 5432,
 });
 
 export default pool;  // ES Modules syntax
