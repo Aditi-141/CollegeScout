@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import ParentForm from './ParentForm'; // Adjust the path as needed
+import FileUpload from "./components/FileUpload";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <ParentForm />
+        <FileUpload/>
       </header>
     </div>
   );
