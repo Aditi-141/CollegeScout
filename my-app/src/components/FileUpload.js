@@ -1,48 +1,63 @@
 import React, { useState } from 'react';
-import './FileUploadForm.css';
-import FileInput from './FileInput';
-import UploadStatus from './UploadStatus';
-import ServerResponse from './ServerResponse';
+import './FileUploadForm.css'; 
+import FileInput from './FileInput'; 
+import UploadStatus from './UploadStatus'; 
+import ServerResponse from './ServerResponse'; 
 
 const FileUploadForm = () => {
+  // States for managing the file upload process
   const [selectedFile, setSelectedFile] = useState(null);
-  const [isFileSelected, setIsFileSelected] = useState(false);
-  const [uploadSuccess, setUploadSuccess] = useState(false);
-  const [serverResponse, setServerResponse] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [hovered, setHovered] = useState(false);
-  const [showMore, setShowMore] = useState(false);
+  const [isFileSelected, setIsFileSelected] = useState(false); 
+  const [uploadSuccess, setUploadSuccess] = useState(false); 
+  const [serverResponse, setServerResponse] = useState(''); 
+  const [isLoading, setIsLoading] = useState(false); 
+  const [hovered, setHovered] = useState(false); 
+  const [showMore, setShowMore] = useState(false); 
 
+  /**
+   * Handles the change event when a user selects a file
+  */ 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedFile(file);
+      setSelectedFile(file); 
       setUploadSuccess(false);
-      setIsFileSelected(true);
+      setIsFileSelected(true); 
     } else {
-      setIsFileSelected(false);
+      setIsFileSelected(false); // No file selected
     }
   };
 
+  // Toggles the "Show More" button for server response
   const toggleShowMore = () => setShowMore(!showMore);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    setUploadSuccess(false);
-    setIsFileSelected(false);
+  /** 
+   * Handles form submission and file upload
+  */
 
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+    setIsLoading(true); // Set loading state to true
+    setUploadSuccess(false); // Reset success state
+    setIsFileSelected(false); // Disable the file selected state during submission
+
+    // If no file is selected, show an alert and stop the submission process
     if (!selectedFile) {
       alert('Please select a file first!');
-      setIsLoading(false);
+      setIsLoading(false); // Reset loading state
       return;
     }
 
+    // Create a FileReader object to read the contents of the selected file
     const reader = new FileReader();
+    
+    // Once the file is read, send its contents to the server
     reader.onload = async (e) => {
-      const text = e.target.result;
+      const text = e.target.result; // Get the file content (SOP)
+      
+      // Send the file content to the backend server for processing
       fetch("http://localhost:8000/api/fileUpload", {
-        method: 'POST',
+        method: 'POST', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: text }),
       })
@@ -50,13 +65,14 @@ const FileUploadForm = () => {
       .then((data) => {
         setServerResponse(data.response);
         setIsLoading(false);
-        setUploadSuccess(true);
+        setUploadSuccess(true); 
       })
       .catch((error) => {
         console.error('Error:', error);
         setIsLoading(false);
       });
     };
+
     reader.readAsText(selectedFile);
   };
 
@@ -66,12 +82,16 @@ const FileUploadForm = () => {
       <p className="description">
         Upload your Statement of Purpose, and we'll help you find colleges that might be a good fit for you.
       </p>
+
+      {/* Form for file upload */}
       <form onSubmit={handleSubmit} className="form">
         <FileInput
           handleFileChange={handleFileChange}
-          isFileSelected={isFileSelected}
+          isFileSelected={isFileSelected} 
           selectedFile={selectedFile}
         />
+        
+        {/* Submit button for uploading the file */}
         <button
           type="submit"
           className="button"
@@ -79,11 +99,14 @@ const FileUploadForm = () => {
           onMouseLeave={() => setHovered(false)}
           disabled={isLoading}
         >
-          {isLoading ? 'Analyzing...' : 'Upload'}
+          {isLoading ? 'Analyzing...' : 'Upload'} {/* Show loading text when processing */}
         </button>
       </form>
 
+      {/* Display the upload status (loading, success, etc.) */}
       <UploadStatus isLoading={isLoading} uploadSuccess={uploadSuccess} />
+
+      {/* Display the server's response after analysis */}
       <ServerResponse
         serverResponse={serverResponse}
         showMore={showMore}
