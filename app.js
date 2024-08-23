@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors"; // Assuming CORS handling is needed, make sure to install it
-import { generateResponse } from './dist/controllers/index.js';
+import { generateResponse } from './src/controllers/index.js';
 
 dotenv.config();
 

@@ -15,8 +15,9 @@ const FileUploadForm = () => {
   const [showMore, setShowMore] = useState(false); 
 
   /**
-   * Handles the change event when a user selects a file
-  */ 
+   * Handles the change event when a user selects a file.
+   * @param {object} event - The event triggered when a file is selected.
+   */
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -31,15 +32,16 @@ const FileUploadForm = () => {
   // Toggles the "Show More" button for server response
   const toggleShowMore = () => setShowMore(!showMore);
 
-  /** 
-   * Handles form submission and file upload
-  */
-
+ /**
+   * Handles form submission and file upload. 
+   * Reads the file content and sends it to the backend server for processing.
+   * @param {object} event - The form submission event.
+   */
   const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent default form submission behavior
-    setIsLoading(true); // Set loading state to true
-    setUploadSuccess(false); // Reset success state
-    setIsFileSelected(false); // Disable the file selected state during submission
+    event.preventDefault(); 
+    setIsLoading(true); 
+    setUploadSuccess(false);
+    setIsFileSelected(false);
 
     // If no file is selected, show an alert and stop the submission process
     if (!selectedFile) {

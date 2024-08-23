@@ -6,7 +6,9 @@
   "scripts": {
     "build": "rm -rf dist/* && tsc",
     "start": "node dist/app.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "test:backend": "jest --config jest.backend.config.js"
+
   },
   "author": "Pablo Blanco",
   "license": "ISC",
