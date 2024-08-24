@@ -12,7 +12,6 @@ app.use(cors()); // Enable CORS if your frontend is on a different origin
 app.use(express.json()); // Parse JSON bodies
 
 // POST endpoint
-app.post('/api/submit', generateResponse);
 app.post('/api/fileUpload',cors(), generateResponse);
 
 

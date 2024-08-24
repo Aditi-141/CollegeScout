@@ -2,7 +2,7 @@ import pkg from "express";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import dotenv from "dotenv";
 import cors from "cors";
-import pool from "../../dist/model/database.js";
+import pool from "../model/database.js";
 
 dotenv.config();
 
